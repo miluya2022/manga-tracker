@@ -1,6 +1,6 @@
 # 追漫書架（PWA + Userscript + Supabase）
 
-免安裝漫畫閱讀 App，在瀏覽器看漫畫櫃（`m.manhuagui.com` / `www.manhuagui.com`）時自動背景紀錄**看到哪一話、哪一頁**，隨時從手機主畫面的 PWA 書架一鍵續看。
+免安裝漫畫閱讀 App，在瀏覽器看 **漫畫人（`www.manhuaren.com` / `m.manhuaren.com`）** 或 **漫畫櫃（`m.manhuagui.com` / `www.manhuagui.com`）** 時自動背景紀錄**看到哪一話、哪一頁**，隨時從手機主畫面的 PWA 書架一鍵續看。
 
 ## 專案結構
 
