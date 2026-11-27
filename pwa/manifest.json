@@ -1,0 +1,17 @@
+{
+  "name": "追漫書架",
+  "short_name": "追漫書架",
+  "description": "免裝漫畫 App，自動同步漫畫閱讀進度的個人 PWA 書架",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b1120",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

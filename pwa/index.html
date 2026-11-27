@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f172a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="追漫書架" />
+  <title>追漫書架</title>
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="icon" type="image/svg+xml" href="./icon.svg" />
+  <link rel="apple-touch-icon" href="./icon.svg" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-icon" aria-hidden="true">📚</span>
+        <h1>追漫書架</h1>
+        <span id="totalBadge" class="badge">0</span>
+      </div>
+      <div class="topbar-actions">
+        <button id="refreshBtn" class="icon-btn" title="重新整理" aria-label="重新整理">↻</button>
+        <button id="settingsBtn" class="icon-btn" title="連線設定" aria-label="連線設定">⚙</button>
+      </div>
+    </div>
+
+    <div class="controls">
+      <input
+        id="searchInput"
+        type="search"
+        class="search-input"
+        placeholder="搜尋漫畫名稱..."
+        autocomplete="off"
+      />
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-status="reading">追漫中</button>
+        <button class="tab" data-status="all">全部</button>
+        <button class="tab" data-status="on_hold">擱置</button>
+        <button class="tab" data-status="completed">已完結</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div id="setupBanner" class="banner hidden">
+      <p>尚未設定 Supabase 連線資訊，請先完成設定以同步閱讀進度。</p>
+      <button id="openSetupBtn" class="btn primary">立即設定</button>
+    </div>
+
+    <div id="errorBanner" class="banner error hidden"></div>
+
+    <section id="comicList" class="comic-grid" aria-live="polite"></section>
+
+    <div id="emptyState" class="empty-state hidden">
+      <div class="empty-icon">📖</div>
+      <p id="emptyTitle">目前沒有追漫紀錄</p>
+      <p class="empty-sub">在瀏覽器打開漫畫櫃閱讀任一章節，腳本會自動把進度同步到這裡。</p>
+    </div>
+  </main>
+
+  <!-- 設定視窗 -->
+  <div id="settingsModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+    <div class="modal-backdrop"></div>
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 id="settingsTitle">Supabase 連線設定</h2>
+        <button id="closeSettingsBtn" class="icon-btn" aria-label="關閉">✕</button>
+      </div>
+
+      <form id="settingsForm" class="modal-body">
+        <label class="field">
+          <span>Supabase Project URL</span>
+          <input id="inputUrl" type="url" placeholder="https://xxxxx.supabase.co" required />
+        </label>
+
+        <label class="field">
+          <span>Supabase Anon Key</span>
+          <input id="inputKey" type="password" placeholder="eyJhbGciOi..." required />
+        </label>
+
+        <label class="field">
+          <span>個人同步密鑰（Sync Key，至少 8 字元）</span>
+          <div class="inline-field">
+            <input id="inputSyncKey" type="text" minlength="8" placeholder="自訂一組隨機密鑰" required />
+            <button type="button" id="genKeyBtn" class="btn secondary">隨機產生</button>
+          </div>
+          <small>PWA 與瀏覽器 Userscript 填入相同的 Sync Key 即可自動同步。</small>
+        </label>
+
+        <div class="modal-actions">
+          <button type="submit" class="btn primary">儲存並連線</button>
+        </div>
+
+        <div class="snippet-box">
+          <div class="snippet-header">
+            <span>Userscript CONFIG 區塊（填完後可一鍵複製）</span>
+            <button type="button" id="copyConfigBtn" class="btn small">複製</button>
+          </div>
+          <pre id="configSnippet"></pre>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
